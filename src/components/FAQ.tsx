@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
 
 const FAQ = () => {
   const faqs = [
@@ -77,12 +78,12 @@ const FAQ = () => {
           <p className="text-gray-600 mb-4">
             Vous ne trouvez pas la réponse à votre question ?
           </p>
-          <a 
-            href="mailto:support@designmaster.fr" 
-            className="text-primary hover:text-primary/80 font-semibold underline"
+          <Button 
+            variant="outline" 
+            className="text-primary hover:text-primary/80 border-primary hover:border-primary/80"
           >
             Contactez notre équipe support
-          </a>
+          </Button>
         </div>
       </div>
     </section>

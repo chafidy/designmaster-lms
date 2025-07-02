@@ -1,5 +1,5 @@
 
-import { Play, Users, Award, Clock } from 'lucide-react';
+import { Play, Award, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import AnimatedCounter from '@/components/AnimatedCounter';
@@ -44,25 +44,19 @@ const HeroSection = () => {
               </Button>
             </div>
 
-            {/* Stats with animated counters */}
-            <div className="grid grid-cols-3 gap-6">
+            {/* Stats with animated counters - aligned with floating card */}
+            <div className="grid grid-cols-2 gap-6">
               <div className="text-center">
                 <div className="text-2xl font-bold text-gray-900">
-                  <AnimatedCounter end={15000} suffix="+" />
+                  <AnimatedCounter end={2800} suffix="+" />
                 </div>
-                <div className="text-sm text-gray-600">Étudiants</div>
+                <div className="text-sm text-gray-600">Étudiants actifs</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-gray-900">
                   <AnimatedCounter end={50} suffix="+" />
                 </div>
                 <div className="text-sm text-gray-600">Cours</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">
-                  <AnimatedCounter end={4.9} suffix="★" />
-                </div>
-                <div className="text-sm text-gray-600">Satisfaction</div>
               </div>
             </div>
           </div>
@@ -103,12 +97,12 @@ const HeroSection = () => {
               </div>
             </Card>
 
-            {/* Floating cards */}
+            {/* Floating cards - matching the main stats */}
             <div className="absolute -bottom-4 -left-4 animate-scale-in" style={{ animationDelay: '0.3s' }}>
               <Card className="p-4 bg-white shadow-lg border-0">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <Users className="w-5 h-5 text-green-600" />
+                    <div className="w-2 h-2 bg-green-600 rounded-full"></div>
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">
