@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { Search, Bell, User, Menu, X, BookOpen, Users, Trophy, Info, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Mock login state
   const location = useLocation();
+  const navigate = useNavigate();
   
   // Navigation for non-logged-in users (landing page)
   const publicNavigation = [
@@ -28,6 +29,10 @@ const Header = () => {
   const navigation = isLoggedIn ? privateNavigation : publicNavigation;
 
   const isActive = (path: string) => location.pathname === path;
+
+  const handleLogin = () => {
+    navigate('/login');
+  };
 
   return (
     <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
@@ -93,13 +98,13 @@ const Header = () => {
                 <Button 
                   variant="ghost" 
                   size="sm"
-                  onClick={() => setIsLoggedIn(true)} // Mock login
+                  onClick={handleLogin}
                 >
                   Connexion
                 </Button>
                 <Button 
                   size="sm"
-                  onClick={() => setIsLoggedIn(true)} // Mock login
+                  onClick={handleLogin}
                 >
                   S'inscrire
                 </Button>
@@ -145,7 +150,7 @@ const Header = () => {
                     variant="ghost" 
                     className="justify-start"
                     onClick={() => {
-                      setIsLoggedIn(true);
+                      handleLogin();
                       setIsMobileMenuOpen(false);
                     }}
                   >
@@ -154,7 +159,7 @@ const Header = () => {
                   <Button 
                     className="justify-start"
                     onClick={() => {
-                      setIsLoggedIn(true);
+                      handleLogin();
                       setIsMobileMenuOpen(false);
                     }}
                   >
