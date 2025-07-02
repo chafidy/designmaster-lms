@@ -44,7 +44,7 @@ const HeroSection = () => {
               </Button>
             </div>
 
-            {/* Stats with animated counters - aligned with floating card */}
+            {/* Stats with animated counters */}
             <div className="grid grid-cols-2 gap-6">
               <div className="text-center">
                 <div className="text-2xl font-bold text-gray-900">
@@ -96,23 +96,6 @@ const HeroSection = () => {
                 </div>
               </div>
             </Card>
-
-            {/* Floating cards - matching the main stats */}
-            <div className="absolute -bottom-4 -left-4 animate-scale-in" style={{ animationDelay: '0.3s' }}>
-              <Card className="p-4 bg-white shadow-lg border-0">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">
-                      <AnimatedCounter end={2800} suffix="+" />
-                    </div>
-                    <div className="text-xs text-gray-600">Étudiants actifs</div>
-                  </div>
-                </div>
-              </Card>
-            </div>
           </div>
         </div>
       </div>

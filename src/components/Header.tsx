@@ -1,20 +1,31 @@
 
 import { useState } from 'react';
-import { Search, Bell, User, Menu, X, BookOpen, Users, Trophy } from 'lucide-react';
+import { Search, Bell, User, Menu, X, BookOpen, Users, Trophy, Info, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Mock login state
   const location = useLocation();
   
-  const navigation = [
-    { name: 'Accueil', href: '/', icon: BookOpen },
+  // Navigation for non-logged-in users (landing page)
+  const publicNavigation = [
+    { name: 'À propos', href: '/about', icon: Info },
     { name: 'Cours', href: '/catalog', icon: BookOpen },
+    { name: 'Communauté', href: '/community', icon: Users },
+    { name: 'Contact', href: '/contact', icon: Phone },
+  ];
+
+  // Navigation for logged-in users
+  const privateNavigation = [
     { name: 'Dashboard', href: '/dashboard', icon: Trophy },
+    { name: 'Cours', href: '/catalog', icon: BookOpen },
     { name: 'Communauté', href: '/community', icon: Users },
   ];
+
+  const navigation = isLoggedIn ? privateNavigation : publicNavigation;
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -49,27 +60,51 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Search & Actions */}
+          {/* Right Actions */}
           <div className="flex items-center space-x-4">
-            {/* Search - Hidden on mobile */}
-            <div className="hidden sm:block relative">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <Input
-                placeholder="Rechercher un cours..."
-                className="pl-10 w-64 bg-gray-50 border-gray-200 focus:ring-primary/20"
-              />
-            </div>
+            {/* Search - Hidden on mobile and only for logged-in users */}
+            {isLoggedIn && (
+              <div className="hidden sm:block relative">
+                <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <Input
+                  placeholder="Rechercher un cours..."
+                  className="pl-10 w-64 bg-gray-50 border-gray-200 focus:ring-primary/20"
+                />
+              </div>
+            )}
 
-            {/* Notifications */}
-            <Button variant="ghost" size="sm" className="relative">
-              <Bell className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            </Button>
+            {isLoggedIn ? (
+              // Logged-in user actions
+              <>
+                {/* Notifications */}
+                <Button variant="ghost" size="sm" className="relative">
+                  <Bell className="w-5 h-5" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                </Button>
 
-            {/* Profile */}
-            <Button variant="ghost" size="sm">
-              <User className="w-5 h-5" />
-            </Button>
+                {/* Profile */}
+                <Button variant="ghost" size="sm">
+                  <User className="w-5 h-5" />
+                </Button>
+              </>
+            ) : (
+              // Public user actions (login/register buttons)
+              <div className="hidden md:flex items-center space-x-3">
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => setIsLoggedIn(true)} // Mock login
+                >
+                  Connexion
+                </Button>
+                <Button 
+                  size="sm"
+                  onClick={() => setIsLoggedIn(true)} // Mock login
+                >
+                  S'inscrire
+                </Button>
+              </div>
+            )}
 
             {/* Mobile menu button */}
             <Button
@@ -102,15 +137,43 @@ const Header = () => {
                   <span>{item.name}</span>
                 </Link>
               ))}
+              
+              {/* Mobile auth buttons for non-logged-in users */}
+              {!isLoggedIn && (
+                <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
+                  <Button 
+                    variant="ghost" 
+                    className="justify-start"
+                    onClick={() => {
+                      setIsLoggedIn(true);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    Connexion
+                  </Button>
+                  <Button 
+                    className="justify-start"
+                    onClick={() => {
+                      setIsLoggedIn(true);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    S'inscrire
+                  </Button>
+                </div>
+              )}
             </div>
-            {/* Mobile Search */}
-            <div className="mt-4 relative">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <Input
-                placeholder="Rechercher un cours..."
-                className="pl-10 bg-gray-50 border-gray-200"
-              />
-            </div>
+            
+            {/* Mobile Search for logged-in users */}
+            {isLoggedIn && (
+              <div className="mt-4 relative">
+                <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <Input
+                  placeholder="Rechercher un cours..."
+                  className="pl-10 bg-gray-50 border-gray-200"
+                />
+              </div>
+            )}
           </div>
         )}
       </div>
